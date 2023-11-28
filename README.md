@@ -22,13 +22,14 @@ This was written in TypeScript and exported to ES6 to allow support for browsers
 
 The files in this set are as follows:
 
-| path              | description
-| ----------        | ----------
-| LICENSE.md        | License notice ( [MIT](https://mit-license.org) ).
-| README.md         | This document.
-| mpc_rotator.ts    | The class definition in TypeScript.
-| mpc_rotator.js    | The class definition in ES6.
-| _invoke.js        | Example implementation code.
+| path                | description
+| ------------        | ------------
+| LICENSE.md          | License notice ( [MIT](https://mit-license.org) ).
+| README.md           | This document.
+| mpc_rotator.ts      | The class definition in TypeScript.
+| mpc_rotator.js      | The class definition in ES6.
+| mpc_rotator.min.js  | Minified version.
+| _invoke.js          | Example implementation code.
 
 ## Recommended HTML Code
 
