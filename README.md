@@ -76,6 +76,8 @@ The IDs for the rotating elements are the same as the class for each with a numb
 
 ### Coding Example
 
+Use the `mp` namespace to help avoid collisions.
+
 ```js
 const rot_container = 'rotator-set';
 const rot_banner    = 'rotator-box';
