@@ -1,6 +1,8 @@
-/*! --- Banner Rotator - aka, Carousel ---------------------------------------- *
+/** --- Banner Rotator - aka, Carousel ---------------------------------------- *
  * mpc_bannerRotator 1.0.0
- * Copyright (c) 2023 Mootly Obviate -- See /LICENSE.md
+ * @copyright 2023 Mootly Obviate -- See /LICENSE.md
+ * @license   MIT
+ * @version   1.0.0
  * ---------------------------------------------------------------------------- *
  * Swap banners as a carousel in a defined region of the page.
  * ---------------------------------------------------------------------------- *
@@ -37,7 +39,7 @@
  *   ...
  * };
  * --- Revision History ------------------------------------------------------- *
- * 2023-11-27 | New TypeScript-compliant version
+ * 2023-12-04 | Version 1.0.0 completed
  * ---------------------------------------------------------------------------- */
 class mpc_bannerRotator {
   constructor(

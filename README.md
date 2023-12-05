@@ -1,6 +1,6 @@
 # MoosePlum Banner Rotator Class
 
-This is a simple carousel script. It does not include, nor generate, the HTML.
+This is a simple carousel script. It does not include nor generate the HTML.
 
 The carousel structure was meant to be reasonably accessible. The following assumptions are made in the code:
 
@@ -31,7 +31,9 @@ The files in this set are as follows:
 | mpc_rotator.min.js  | Minified version.
 | _invoke.js          | Example implementation code.
 
-## Recommended HTML Code
+## Implementation
+
+### Recommended HTML Code
 
 The code was developed for a page with the following code.
 
@@ -54,15 +56,14 @@ The code was developed for a page with the following code.
    ⋮
 </div>
 ```
-### Notes on the HTML
+
+#### Notes on the HTML
 
 Any `reader-only` elements are meant for text readers only and do not display on the screen.
 
 The `hero-splash` elements are empty elements to recieve CSS background image placement. This can also be done directly in the `hero-content` elements depending on your layout.
 
 The IDs for the rotating elements are the same as the class for each with a number appended to the end, e.g. `id="rotator-box-1" class="rotator-box"`. The numbers MUST be sequential, starting with 1.
-
-## Implementation
 
 ### Parameters
 

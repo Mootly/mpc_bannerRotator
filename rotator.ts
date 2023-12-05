@@ -1,6 +1,8 @@
-/*! --- Banner Rotator - aka, Carousel ---------------------------------------- *
+/** --- Banner Rotator - aka, Carousel ---------------------------------------- *
  * mpc_bannerRotator 1.0.0
- * Copyright (c) 2023 Mootly Obviate -- See /LICENSE.md
+ * @copyright 2023 Mootly Obviate -- See /LICENSE.md
+ * @license   MIT
+ * @version   1.0.0
  * ---------------------------------------------------------------------------- *
  * Swap banners as a carousel in a defined region of the page.
  * ---------------------------------------------------------------------------- *
@@ -16,11 +18,11 @@
  *  - Script does not run for smaller screens.
  * ---
  * Constructor arguments:
- *   pContainer     : string  : ID of containing element for carousel.
- *   pDisplayBox    : string  : Class of banner.
- *   pControlTab    : string  : Class of tab or link associated with banner.
+ *   pContainer     : string  : ID of containing element for link list.
+ *   pDisplayBox    : string  : Class of banner items.
+ *   pControlTab    : string  : Class of links associated with banner items.
  *   pControlSwitch : string  : ID of on/off switch for carousel.
- *   pMaxLoop       : number  : Maximum number of times to loop
+ *   pMaxLoop       : number  : Number of times to loop.
  *                              Default = 0, loop endlessly
  * *
  * Notes:
@@ -37,7 +39,7 @@
  *   ...
  * };
  * --- Revision History ------------------------------------------------------- *
- * 2023-11-27 | New TypeScript-compliant version
+ * 2023-12-04 | Version 1.0.0 completed
  * ---------------------------------------------------------------------------- */
 class mpc_bannerRotator {
   interval          : number;
