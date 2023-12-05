@@ -4,13 +4,13 @@ This is a simple carousel script. It does not include nor generate the HTML.
 
 The carousel structure was meant to be reasonably accessible. The following assumptions are made in the code:
 
-  - There must be on/off button.
-  - There must be a way to limit the number of times the banner cycles.
-  - There is a menu of links to each item in the set of banner items. The original design has them styled as tabs across the bottom of the banner.
-  - Selecting a link to a banner item will stop the rotation and give focus to the corresponding item.
-  - Current banner items are swapped out by using classes. This leaves the developer free to style the rotator however they want.
-  - The script auto-disables for smaller screens: The default setting is 56em (896px). Small screen layouts will need to be styled accordingly.
-  - The IDs and classes of each link and banner item are related as below.
+- There must be on/off button.
+- There must be a way to limit the number of times the banner cycles.
+- There is a menu of links to each item in the set of banner items. The original design has them styled as tabs across the bottom of the banner.
+- Selecting a link to a banner item will stop the rotation and give focus to the corresponding item.
+- Current banner items are swapped out by using classes. This leaves the developer free to style the rotator however they want.
+- The script auto-disables for smaller screens: The default setting is 56em (896px). Small screen layouts will need to be styled accordingly.
+- The IDs and classes of each link and banner item are related as below.
 
 ## Dependencies
 
@@ -57,6 +57,8 @@ The code was developed for a page with the following code.
 </div>
 ```
 
+### Notes on the HTML
+
 #### Notes on the HTML
 
 Any `reader-only` elements are meant for text readers only and do not display on the screen.
@@ -67,13 +69,13 @@ The IDs for the rotating elements are the same as the class for each with a numb
 
 ### Parameters
 
-| name              | type              | description
-| ------------      | ------------      | ------------
-| pContainer        | string            | ID of containing element for link list.
-| pDisplayBox       | string            | Class for banner items.
-| pControlTab       | string            | Class of link associated with banner.
-| pControlSwitch    | string            | ID of on/off switch for carousel.
-| pMaxLoop          | number            | Number of times to loop: Default = 0, loop endlessly
+| name            | type        | default         | description
+| ------------    | ----------  | ------------    | ------------
+| pContainer      | string      | rotator-set     | ID of containing element for link list.
+| pDisplayBox     | string      | rotator-box     | Class for banner items.
+| pControlTab     | string      | rotator-tab     | Class of link associated with banner.
+| pControlSwitch  | string      | rotator-switch  | ID of on/off switch for carousel.
+| pMaxLoop        | number      | 0 (disabled)    | Number of times to loop.
 
 ### Coding Example
 
