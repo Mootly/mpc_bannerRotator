@@ -46,7 +46,7 @@ The code was developed for a page with the following code.
     </li>
      ⋮
   </ul>
-  <div id="rotator-switch" class="fa fa-chevron-circle-right">
+  <div id="rotator-switch">
     <span class="reader-only">toggle carousel</span>
   </div>
   <div id="rotator-box-1" class="rotator-box">
@@ -59,13 +59,41 @@ The code was developed for a page with the following code.
 
 ### Notes on the HTML
 
-#### Notes on the HTML
-
 Any `reader-only` elements are meant for text readers only and do not display on the screen.
 
-The `hero-splash` elements are empty elements to recieve CSS background image placement. This can also be done directly in the `hero-content` elements depending on your layout.
+The `hero-splash` elements are empty elements to receive CSS background image placement. This can also be done directly in the `hero-content` elements depending on your layout.
 
 The IDs for the rotating elements are the same as the class for each with a number appended to the end, e.g. `id="rotator-box-1" class="rotator-box"`. The numbers MUST be sequential, starting with 1.
+
+### Sample CSS
+
+This only includes style rules relevant to the script and how it functions. The actual styling on the elements is entirely dependent on the implementation. A grid is recommended to keep the tabs together.
+
+```css
+// *** desktop and large screens ***
+@media (min-width: _breakTablet_) {
+  #hero-banner {
+    z-index         : _defaultZIndex;
+    #rotator-switch {
+      z-index       : _rotZIndex_+10;
+    }
+    #rotator-set {
+      display       : grid;
+      grid-auto-columns: minmax(0, 1fr);
+      grid-auto-flow: column;
+      z-index       : _rotZindex_-10;
+    }
+    .rotator-box {
+      z-index       : _rotZindex_;
+      &.selected { z-index: _rotZindex_+1; }
+    }
+  }
+}
+// *** tablet and smaller *** disable and hide navigation tabs
+@media (max-width: _breakTablet_) {
+  #hero-banner #rotator-switch, #hero-banner #rotator-set { display: none; }
+}
+```
 
 ### Parameters
 
