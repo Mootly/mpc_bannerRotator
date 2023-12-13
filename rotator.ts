@@ -33,7 +33,6 @@
  *   The tabs or links are meant to make it clear that there is more
  *   on the carousel than currently displayed.
  * *** Initialize - Example --------------------------------------------------- *
- * Need both load and scroll listeners
  * let mp = {
  *   rotator: new mpc_bannerRotator(container ID, box class, tab class, switch ID),
  *   ...
@@ -133,4 +132,4 @@ class mpc_bannerRotator {
     }
   }
 }
-/* ---------------------------------------------------------------------------- */
+/*! --- Copyright (c) 2023 Mootly Obviate -- See /LICENSE.md ------------------ */
