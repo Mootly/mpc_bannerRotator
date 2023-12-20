@@ -96,16 +96,16 @@ class mpc_bannerRotator {
     if (pos_new > 0) {
       clearInterval(this.interval);
       this.popitup(pos_new);
-      this.control.classList.remove('fa-times');
-      this.control.classList.add('fa-chevron-circle-right');
-    } else if (this.control.classList.contains('fa-times')) {
+      this.control.classList.remove('rot-pause');
+      this.control.classList.add('rot-play');
+    } else if (this.control.classList.contains('rot-pause')) {
       clearInterval(this.interval);
-      this.control.classList.remove('fa-times');
-      this.control.classList.add('fa-chevron-circle-right');
+      this.control.classList.remove('rot-pause');
+      this.control.classList.add('rot-play');
     } else {
       this.interval = setInterval(() => { this.rotateBanner(); }, 7500);
-      this.control.classList.remove('fa-chevron-circle-right');
-      this.control.classList.add('fa-times');
+      this.control.classList.remove('rot-play');
+      this.control.classList.add('rot-pause');
     }
   }
   // call from the above two, not directly                    *
