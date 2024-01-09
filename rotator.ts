@@ -6,7 +6,7 @@
  * ---------------------------------------------------------------------------- *
  * Swap banners as a carousel in a defined region of the page.
  * ---------------------------------------------------------------------------- *
- * Assumptions anf Features:
+ * Assumptions and Features:
  *  - There is an on/off button.
  *  - A rotatiom limit can be set.
  *  - There are tabs or links for each banner that will stop the rotation and
@@ -26,9 +26,9 @@
  *                              Default = 0, loop endlessly
  * *
  * Notes:
- *   This was create to maximize accessibility of a carousel without
+ *   This was created to maximize accessibility of a carousel without
  *   creating something overly complex.
- *   The page it was written for uses z-index saticking for featured elements,
+ *   The page it was written for uses z-index stacking for featured elements,
  *   so all elements should still visible to a text reader.
  *   The tabs or links are meant to make it clear that there is more
  *   on the carousel than currently displayed.
