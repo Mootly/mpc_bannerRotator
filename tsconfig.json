@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "System",
+    "sourceMap": false,
+    "removeComments": false,
+    "outFile": "./rotator.js"
+  },
+  "include": [
+    "./rotator.ts"
+  ]
+}
