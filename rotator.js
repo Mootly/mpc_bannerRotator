@@ -108,7 +108,7 @@ class mpc_bannerRotator {
       this.control.classList.add('rot-pause');
     }
   }
-  // call from the above two, not directly                    *
+                    // call from the above two, not directly                    *
   popitup(pos_new) {
     let tab_new     = this.tabCurr.replace(/\d$/, pos_new);
     let box_new     = this.boxCurr.replace(/\d$/, pos_new);
