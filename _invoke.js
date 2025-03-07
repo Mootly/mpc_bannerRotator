@@ -13,6 +13,6 @@ const rot_limit     = 0;
 let mp = {
   rotator: new mpc_bannerRotator(rot_container, rot_banner, rot_tabs, rot_switch, rot_limit),
   sticky: new mpc_sticky('sticky', 'layer', true),
-//...
+  /* etc. */
 };
 /* ---------------------------------------------------------------------------- */

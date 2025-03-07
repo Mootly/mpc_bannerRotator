@@ -109,13 +109,13 @@ This only includes style rules relevant to the script and how it functions. The 
 
 ### Parameters
 
-| name            | type        | default         | description
-| ------------    | ----------  | ------------    | ------------
-| pContainer      | string      | rotator-set     | ID of containing element for link list.
-| pDisplayBox     | string      | rotator-box     | Class for banner items.
-| pControlTab     | string      | rotator-tab     | Class of link associated with banner.
-| pControlSwitch  | string      | rotator-switch  | ID of on/off switch for carousel.
-| pMaxLoop        | number      | 0 (disabled)    | Number of times to loop.
+| name           | type   | default        | description                             |
+| -------------- | ------ | -------------- | --------------------------------------- |
+| pContainer     | string | rotator-set    | ID of containing element for link list. |
+| pDisplayBox    | string | rotator-box    | Class for banner items.                 |
+| pControlTab    | string | rotator-tab    | Class of link associated with banner.   |
+| pControlSwitch | string | rotator-switch | ID of on/off switch for carousel.       |
+| pMaxLoop       | number | 0 (disabled)   | Number of times to loop.                |
 
 ### Coding Example
 
