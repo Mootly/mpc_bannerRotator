@@ -1,8 +1,8 @@
 /** --- Banner Rotator - aka, Carousel ---------------------------------------- *
- * mpc_bannerRotator 1.0.0
- * @copyright 2023 Mootly Obviate -- See /LICENSE.md
+ * mpc_bannerRotator 1.0.1
+ * @copyright 2023-2025 Mootly Obviate -- See /LICENSE.md
  * @license   MIT
- * @version   1.0.0
+ * @version   1.0.1
  * ---------------------------------------------------------------------------- *
  * Swap banners as a carousel in a defined region of the page.
  * ---------------------------------------------------------------------------- *
@@ -38,71 +38,72 @@
  *   ...
  * };
  * --- Revision History ------------------------------------------------------- *
+ * 2025-03-10 | Added DOMContentLoaded handler to avoid edge cases.
  * 2023-12-04 | Version 1.0.0 completed
  * ---------------------------------------------------------------------------- */
 class mpc_bannerRotator {
-  constructor(
-    pContainer      = 'rotator-set',
-    pDisplayBox     = 'rotator-box',
-    pControlTab     = 'rotator-tab',
-    pControlSwitch  = 'rotator-switch',
-    pMaxLoop        = 0
-  ) {
+  constructor(pContainer = 'rotator-set', pDisplayBox = 'rotator-box', pControlTab = 'rotator-tab', pControlSwitch = 'rotator-switch', pMaxLoop = 0) {
     this.containerID = pContainer;
-    this.container  = document.getElementById(this.containerID);
-    this.boxCurr    = pDisplayBox + '-1';
-    this.box        = document.getElementById(this.boxCurr);
-    this.tabCurr    = pControlTab + '-1';
-    this.tab        = document.getElementById(this.tabCurr);
-    this.controlID  = pControlSwitch;
-    this.control    = document.getElementById(this.controlID);
+    this.boxCurr = pDisplayBox + '-1';
+    this.tabCurr = pControlTab + '-1';
+    this.controlID = pControlSwitch;
+    window.addEventListener('DOMContentLoaded', (ev) => {
+      this.container = document.getElementById(this.containerID);
+      this.box = document.getElementById(this.boxCurr);
+      this.tab = document.getElementById(this.tabCurr);
+      this.control = document.getElementById(this.controlID);
                     // Do not continue if any required elements missing.        *
-    if (this.container && this.box && this.tab && this.control) {
-      this.count    = this.container.getElementsByTagName('li').length;
-      this.limit    = this.count * pMaxLoop;
-      this.counter  = 0;
+      if (this.container && this.box && this.tab && this.control) {
+        this.count = this.container.getElementsByTagName('li').length;
+        this.limit = this.count * pMaxLoop;
+        this.counter = 1;
                     // add listener for all tabs - bubble up                    *
-      this.container.addEventListener('click', (el) => {
-        this.stopBanner(el.target.id.slice(-1));
-      });
-      this.control.addEventListener('click', () => this.stopBanner(-1));
+        this.container.addEventListener('click', (el) => {
+          this.stopBanner(el.target.id.slice(-1));
+        });
+        this.control.addEventListener('click', () => this.stopBanner(-1));
                     // disable rotator for small screens                        *
-      const desktop = window.matchMedia('(min-width: 56em)');
-      if (desktop.matches) {
-        this.interval = setInterval(() => { this.rotateBanner(); }, 7500);
-      }
-      desktop.onchange = (el) => {
-        if (el.matches) {
+        const desktop = window.matchMedia('(min-width: 56em)');
+        if (desktop.matches) {
           this.interval = setInterval(() => { this.rotateBanner(); }, 7500);
-        } else {
-          clearInterval(this.interval);
         }
-      };
-    }
+        desktop.onchange = ((el) => {
+          if (el.matches) {
+            this.interval = setInterval(() => { this.rotateBanner(); }, 7500);
+          }
+          else {
+            clearInterval(this.interval);
+          }
+        });
+      }
+    });
   }
-                    // trigger this one on interval                             *
+                    // trigger on interval                                      *
   rotateBanner() {
     let pos_curr = parseInt(this.boxCurr.slice(-1));
     let pos_new = (pos_curr < this.count) ? pos_curr + 1 : 1;
     if (this.limit && this.limit > this.counter) {
       this.counter++;
       this.popitup(pos_new);
-    } else {
+    }
+    else {
       this.stopBanner(pos_new);
     }
   }
-                    // trigger this one on click                                *
+                    // trigger on click                                         *
   stopBanner(pos_new) {
     if (pos_new > 0) {
       clearInterval(this.interval);
       this.popitup(pos_new);
       this.control.classList.remove('rot-pause');
       this.control.classList.add('rot-play');
-    } else if (this.control.classList.contains('rot-pause')) {
+    }
+    else if (this.control.classList.contains('rot-pause')) {
       clearInterval(this.interval);
       this.control.classList.remove('rot-pause');
       this.control.classList.add('rot-play');
-    } else {
+    }
+    else {
       this.interval = setInterval(() => { this.rotateBanner(); }, 7500);
       this.control.classList.remove('rot-play');
       this.control.classList.add('rot-pause');
@@ -110,16 +111,16 @@ class mpc_bannerRotator {
   }
                     // call from the above two, not directly                    *
   popitup(pos_new) {
-    let tab_new     = this.tabCurr.replace(/\d$/, pos_new);
-    let box_new     = this.boxCurr.replace(/\d$/, pos_new);
+    let tab_new = this.tabCurr.replace(/\d$/, pos_new);
+    let box_new = this.boxCurr.replace(/\d$/, pos_new);
     if (this.tabCurr != tab_new) {
       document.getElementById(tab_new)?.classList.add('selected');
       document.getElementById(box_new)?.classList.add('selected');
       document.getElementById(this.boxCurr)?.classList.remove('selected');
       document.getElementById(this.tabCurr)?.classList.remove('selected');
-      this.boxCurr  = box_new;
-      this.tabCurr  = tab_new;
+      this.boxCurr = box_new;
+      this.tabCurr = tab_new;
     }
   }
 }
-/*! --- Copyright (c) 2023 Mootly Obviate -- See /LICENSE.md ------------------ */
+/*! --- Copyright (c) 2023-2025 Mootly Obviate -- See /LICENSE.md ------------- */

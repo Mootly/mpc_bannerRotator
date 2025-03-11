@@ -1,8 +1,8 @@
 /** --- Banner Rotator - aka, Carousel ---------------------------------------- *
- * mpc_bannerRotator 1.0.0
- * @copyright 2023 Mootly Obviate -- See /LICENSE.md
+ * mpc_bannerRotator 1.0.1
+ * @copyright 2023-2025 Mootly Obviate -- See /LICENSE.md
  * @license   MIT
- * @version   1.0.0
+ * @version   1.0.1
  * ---------------------------------------------------------------------------- *
  * Swap banners as a carousel in a defined region of the page.
  * ---------------------------------------------------------------------------- *
@@ -38,6 +38,7 @@
  *   ...
  * };
  * --- Revision History ------------------------------------------------------- *
+ * 2025-03-10 | Added DOMContentLoaded handler to avoid edge cases.
  * 2023-12-04 | Version 1.0.0 completed
  * ---------------------------------------------------------------------------- */
 class mpc_bannerRotator {
@@ -61,36 +62,38 @@ class mpc_bannerRotator {
     pMaxLoop        : number  = 0
   ) {
     this.containerID= pContainer;
-    this.container  = document.getElementById(this.containerID);
     this.boxCurr    = pDisplayBox+'-1';
-    this.box        = document.getElementById(this.boxCurr);
     this.tabCurr    = pControlTab+'-1';
-    this.tab        = document.getElementById(this.tabCurr);
     this.controlID  = pControlSwitch;
-    this.control    = document.getElementById(this.controlID) as HTMLElement;
-                    // Do not continue if any required elements missing.        *
-    if (this.container && this.box && this.tab && this.control) {
-      this.count    = this.container.getElementsByTagName('li').length;
-      this.limit    = this.count * pMaxLoop;
-      this.counter  = 1;
-                    // add listener for all tabs - bubble up                    *
-      this.container.addEventListener('click', (el) => {
-        this.stopBanner((el.target as HTMLElement).id.slice(-1))
-      });
-      this.control.addEventListener('click', () => this.stopBanner(-1));
-                    // disable rotator for small screens                        *
-      const desktop  = window.matchMedia('(min-width: 56em)');
-      if (desktop.matches) { this.interval = setInterval(() => {this.rotateBanner();}, 7500); }
-      desktop.onchange = (el) => {
-        if (el.matches) {
-          this.interval = setInterval(() => {this.rotateBanner();}, 7500);
-        } else {
-          clearInterval(this.interval);
-        }
-      };
-    }
+    window.addEventListener('DOMContentLoaded', (ev) => {
+      this.container= document.getElementById(this.containerID);
+      this.box      = document.getElementById(this.boxCurr);
+      this.tab      = document.getElementById(this.tabCurr);
+      this.control  = document.getElementById(this.controlID) as HTMLElement;
+      // Do not continue if any required elements missing.        *
+      if (this.container && this.box && this.tab && this.control) {
+        this.count  = this.container.getElementsByTagName('li').length;
+        this.limit  = this.count * pMaxLoop;
+        this.counter= 1;
+        // add listener for all tabs - bubble up                    *
+        this.container.addEventListener('click', (el) => {
+          this.stopBanner((el.target as HTMLElement).id.slice(-1))
+        });
+        this.control.addEventListener('click', () => this.stopBanner(-1));
+        // disable rotator for small screens                        *
+        const desktop  = window.matchMedia('(min-width: 56em)');
+        if (desktop.matches) { this.interval = setInterval(() => {this.rotateBanner();}, 7500); }
+        desktop.onchange = ((el) => {
+          if (el.matches) {
+            this.interval = setInterval(() => {this.rotateBanner();}, 7500);
+          } else {
+            clearInterval(this.interval);
+          }
+        });
+      }
+    });
   }
-                    // trigger this one on interval                             *
+                    // trigger on interval                                      *
   rotateBanner() {
     let pos_curr    = parseInt(this.boxCurr.slice(-1));
     let pos_new     = (pos_curr < this.count) ? pos_curr+1 : 1;
@@ -101,7 +104,7 @@ class mpc_bannerRotator {
       this.stopBanner(pos_new);
     }
   }
-                    // trigger this one on click                                *
+                    // trigger on click                                         *
   stopBanner(pos_new) {
     if (pos_new > 0) {
       clearInterval(this.interval);
@@ -132,4 +135,4 @@ class mpc_bannerRotator {
     }
   }
 }
-/*! --- Copyright (c) 2023 Mootly Obviate -- See /LICENSE.md ------------------ */
+/*! --- Copyright (c) 2023-2025 Mootly Obviate -- See /LICENSE.md ------------- */
