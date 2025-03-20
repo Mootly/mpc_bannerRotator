@@ -25,7 +25,7 @@ The files in this set are as follows:
 | LICENSE.md         | License notice ( [MIT](https://mit-license.org) ). |
 | README.md          | This document.                                     |
 | rotator.ts         | The class definition in TypeScript.                |
-| rotator.js         | The class definition in ES6.                       |
+| rotator.js         | The class definition in ES2020.                    |
 | rotator.min.js     | Minified version.                                  |
 | rotator.min.js.map | Map file.                                          |
 | tsconfig.json      | Example TS > ES2020 config setting.                |
