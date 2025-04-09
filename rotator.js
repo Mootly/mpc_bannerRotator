@@ -52,17 +52,17 @@ class mpc_bannerRotator {
       this.box = document.getElementById(this.boxCurr);
       this.tab = document.getElementById(this.tabCurr);
       this.control = document.getElementById(this.controlID);
-                    // Do not continue if any required elements missing.        *
+      // Do not continue if any required elements missing.        *
       if (this.container && this.box && this.tab && this.control) {
         this.count = this.container.getElementsByTagName('li').length;
         this.limit = this.count * pMaxLoop;
         this.counter = 1;
-                    // add listener for all tabs - bubble up                    *
+        // add listener for all tabs - bubble up                    *
         this.container.addEventListener('click', (el) => {
           this.stopBanner(el.target.id.slice(-1));
         });
         this.control.addEventListener('click', () => this.stopBanner(-1));
-                    // disable rotator for small screens                        *
+        // disable rotator for small screens                        *
         const desktop = window.matchMedia('(min-width: 56em)');
         if (desktop.matches) {
           this.interval = setInterval(() => { this.rotateBanner(); }, 7500);
@@ -78,7 +78,7 @@ class mpc_bannerRotator {
       }
     });
   }
-                    // trigger on interval                                      *
+  // trigger on interval                                      *
   rotateBanner() {
     let pos_curr = parseInt(this.boxCurr.slice(-1));
     let pos_new = (pos_curr < this.count) ? pos_curr + 1 : 1;
@@ -90,7 +90,7 @@ class mpc_bannerRotator {
       this.stopBanner(pos_new);
     }
   }
-                    // trigger on click                                         *
+  // trigger on click                                         *
   stopBanner(pos_new) {
     if (pos_new > 0) {
       clearInterval(this.interval);
@@ -109,7 +109,7 @@ class mpc_bannerRotator {
       this.control.classList.add('rot-pause');
     }
   }
-                    // call from the above two, not directly                    *
+  // call from the above two, not directly                    *
   popitup(pos_new) {
     let tab_new = this.tabCurr.replace(/\d$/, pos_new);
     let box_new = this.boxCurr.replace(/\d$/, pos_new);

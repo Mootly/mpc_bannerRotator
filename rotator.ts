@@ -105,8 +105,8 @@ class mpc_bannerRotator {
     }
   }
                     // trigger on click                                         *
-  stopBanner(pos_new) {
-    if (pos_new > 0) {
+  stopBanner(pos_new : string | number) {
+    if (<number>pos_new > 0) {
       clearInterval(this.interval);
       this.popitup(pos_new);
       this.control.classList.remove('rot-pause');
@@ -122,9 +122,9 @@ class mpc_bannerRotator {
     }
   }
                     // call from the above two, not directly                    *
-  popitup(pos_new) {
-    let tab_new     = this.tabCurr.replace(/\d$/,pos_new);
-    let box_new     = this.boxCurr.replace(/\d$/,pos_new);
+  popitup(pos_new : string | number) {
+    let tab_new     = this.tabCurr.replace(/\d$/,<string>pos_new);
+    let box_new     = this.boxCurr.replace(/\d$/,<string>pos_new);
     if (this.tabCurr != tab_new) {
       document.getElementById(tab_new)?.classList.add('selected');
       document.getElementById(box_new)?.classList.add('selected');
