@@ -1,5 +1,7 @@
 # MoosePlum Banner Rotator Class
 
+Repo: [Mootly/mpc_bannerRotator](https://github.com/Mootly/mpc_bannerRotator)
+
 This is a simple carousel script. It does not include nor generate the HTML.
 
 The carousel structure was meant to be reasonably accessible. The following assumptions are made in the code:
@@ -22,6 +24,7 @@ The files in this set are as follows:
 
 | path               | description                                        |
 | ------------------ | -------------------------------------------------- |
+| CHANGELOG.md       | The changelog for this page widget.                |
 | LICENSE.md         | License notice ( [MIT](https://mit-license.org) ). |
 | README.md          | This document.                                     |
 | rotator.ts         | The class definition in TypeScript.                |
