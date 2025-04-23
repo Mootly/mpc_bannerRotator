@@ -1,8 +1,8 @@
 /** --- Banner Rotator - aka, Carousel ---------------------------------------- *
- * mpc_bannerRotator 1.0.1
+ * mpc_bannerRotator 1.0.2
  * @copyright 2023-2025 Mootly Obviate -- See /LICENSE.md
  * @license   MIT
- * @version   1.0.1
+ * @version   1.0.2
  * ---------------------------------------------------------------------------- *
  * Swap banners as a carousel in a defined region of the page.
  * ---------------------------------------------------------------------------- *
@@ -38,6 +38,7 @@
  *   ...
  * };
  * --- Revision History ------------------------------------------------------- *
+ * 2025-04-23 | Added keyboard functionality.
  * 2025-03-10 | Added DOMContentLoaded handler to avoid edge cases.
  * 2023-12-04 | Version 1.0.0 completed
  * ---------------------------------------------------------------------------- */
@@ -50,8 +51,12 @@ class mpc_bannerRotator {
     window.addEventListener('DOMContentLoaded', (ev) => {
       this.container = document.getElementById(this.containerID);
       this.box = document.getElementById(this.boxCurr);
+      this.boxset = document.querySelectorAll('.' + pDisplayBox);
       this.tab = document.getElementById(this.tabCurr);
+      this.tabset = document.querySelectorAll('.' + pControlTab);
       this.control = document.getElementById(this.controlID);
+      window.addEventListener('mousedown', () => { this.mouseTrigger = true; });
+      window.addEventListener('mouseup', () => { this.mouseTrigger = false; });
       // Do not continue if any required elements missing.        *
       if (this.container && this.box && this.tab && this.control) {
         this.count = this.container.getElementsByTagName('li').length;
@@ -62,6 +67,32 @@ class mpc_bannerRotator {
           this.stopBanner(el.target.id.slice(-1));
         });
         this.control.addEventListener('click', () => this.stopBanner(-1));
+        this.control.addEventListener('keyup', (e) => {
+          if (e.key === 'Enter' || e.keyCode === 13) {
+            this.stopBanner(-1);
+          }
+        });
+        // complicated way in case items > 9                        +
+        this.boxset.forEach((el) => {
+          el.addEventListener('focusin', (ev) => {
+            if (!this.mouseTrigger) {
+              let pos_new = (ev.target
+                .closest('.' + pDisplayBox).id)
+                .replace(pDisplayBox + '-', '');
+              this.stopBanner(pos_new);
+            }
+          });
+        });
+        this.tabset.forEach((el) => {
+          el.addEventListener('focusin', (ev) => {
+            if (!this.mouseTrigger) {
+              let pos_new = (ev.target
+                .closest('.' + pControlTab).id)
+                .replace(pControlTab + '-', '');
+              this.stopBanner(pos_new);
+            }
+          });
+        });
         // disable rotator for small screens                        *
         const desktop = window.matchMedia('(min-width: 56em)');
         if (desktop.matches) {
@@ -92,6 +123,7 @@ class mpc_bannerRotator {
   }
   // trigger on click                                         *
   stopBanner(pos_new) {
+    let tMsg = 'start slideshow';
     if (pos_new > 0) {
       clearInterval(this.interval);
       this.popitup(pos_new);
@@ -107,7 +139,10 @@ class mpc_bannerRotator {
       this.interval = setInterval(() => { this.rotateBanner(); }, 7500);
       this.control.classList.remove('rot-play');
       this.control.classList.add('rot-pause');
+      tMsg = 'stop slideshow';
     }
+    let tLoc = this.control.querySelector('span');
+    tLoc.innerHTML = tMsg;
   }
   // call from the above two, not directly                    *
   popitup(pos_new) {

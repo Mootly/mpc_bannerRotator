@@ -1,8 +1,8 @@
 /** --- Banner Rotator - aka, Carousel ---------------------------------------- *
- * mpc_bannerRotator 1.0.1
+ * mpc_bannerRotator 1.0.2
  * @copyright 2023-2025 Mootly Obviate -- See /LICENSE.md
  * @license   MIT
- * @version   1.0.1
+ * @version   1.0.2
  * ---------------------------------------------------------------------------- *
  * Swap banners as a carousel in a defined region of the page.
  * ---------------------------------------------------------------------------- *
@@ -38,6 +38,7 @@
  *   ...
  * };
  * --- Revision History ------------------------------------------------------- *
+ * 2025-04-23 | Added keyboard functionality.
  * 2025-03-10 | Added DOMContentLoaded handler to avoid edge cases.
  * 2023-12-04 | Version 1.0.0 completed
  * ---------------------------------------------------------------------------- */
@@ -46,14 +47,17 @@ class mpc_bannerRotator {
   container         : HTMLElement | null;
   containerID       : string;
   box               : HTMLElement | null;
+  boxset            : NodeListOf<HTMLElement> | null;
   boxCurr           : string;
   tab               : HTMLElement | null;
+  tabset            : NodeListOf<HTMLElement> | null;
   tabCurr           : string;
   control           : HTMLElement;
   controlID         : string;
   count             : number;
   counter           : number;
   limit             : number;
+  mouseTrigger      : boolean;
   constructor(
     pContainer      : string  = 'rotator-set',
     pDisplayBox     : string  = 'rotator-box',
@@ -68,19 +72,47 @@ class mpc_bannerRotator {
     window.addEventListener('DOMContentLoaded', (ev) => {
       this.container= document.getElementById(this.containerID);
       this.box      = document.getElementById(this.boxCurr);
+      this.boxset   = document.querySelectorAll('.'+pDisplayBox);
       this.tab      = document.getElementById(this.tabCurr);
+      this.tabset   = document.querySelectorAll('.'+pControlTab);
       this.control  = document.getElementById(this.controlID) as HTMLElement;
-      // Do not continue if any required elements missing.        *
+      window.addEventListener('mousedown',  () => { this.mouseTrigger = true; });
+      window.addEventListener('mouseup',    () => { this.mouseTrigger = false; });
+                    // Do not continue if any required elements missing.        *
       if (this.container && this.box && this.tab && this.control) {
         this.count  = this.container.getElementsByTagName('li').length;
         this.limit  = this.count * pMaxLoop;
         this.counter= 1;
-        // add listener for all tabs - bubble up                    *
+                    // add listener for all tabs - bubble up                    *
         this.container.addEventListener('click', (el) => {
           this.stopBanner((el.target as HTMLElement).id.slice(-1))
         });
         this.control.addEventListener('click', () => this.stopBanner(-1));
-        // disable rotator for small screens                        *
+        this.control.addEventListener('keyup', (e) => {
+          if (e.key === 'Enter' || e.keyCode === 13) { this.stopBanner(-1); }
+        });
+                    // complicated way in case items > 9                        +
+        this.boxset.forEach((el) => {
+          el.addEventListener('focusin', (ev) => {
+            if (!this.mouseTrigger) {
+              let pos_new = ((ev.target as HTMLElement)
+                .closest('.'+pDisplayBox).id)
+                .replace(pDisplayBox + '-', '');
+              this.stopBanner(pos_new);
+            }
+          });
+        });
+        this.tabset.forEach((el) => {
+          el.addEventListener('focusin', (ev) => {
+            if (!this.mouseTrigger) {
+              let pos_new = ((ev.target as HTMLElement)
+                .closest('.'+pControlTab).id)
+                .replace(pControlTab + '-', '');
+              this.stopBanner(pos_new);
+            }
+          });
+        });
+                    // disable rotator for small screens                        *
         const desktop  = window.matchMedia('(min-width: 56em)');
         if (desktop.matches) { this.interval = setInterval(() => {this.rotateBanner();}, 7500); }
         desktop.onchange = ((el) => {
@@ -106,6 +138,7 @@ class mpc_bannerRotator {
   }
                     // trigger on click                                         *
   stopBanner(pos_new : string | number) {
+    let tMsg        = 'start slideshow';
     if (<number>pos_new > 0) {
       clearInterval(this.interval);
       this.popitup(pos_new);
@@ -119,7 +152,10 @@ class mpc_bannerRotator {
       this.interval = setInterval(() => {this.rotateBanner();}, 7500);
       this.control.classList.remove('rot-play');
       this.control.classList.add('rot-pause');
+      tMsg          = 'stop slideshow';
     }
+    let tLoc        = this.control.querySelector('span');
+    tLoc.innerHTML  = tMsg;
   }
                     // call from the above two, not directly                    *
   popitup(pos_new : string | number) {

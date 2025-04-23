@@ -54,19 +54,20 @@ The code was developed for a page with the following code.
 
 ```html
 <div id="hero-banner" class="rotator">
-  <p class="reader-only">Jump links for the rotating banner items.</p>
   <ul id="rotator-set">
     <li class="rotator-tab" id="rotator-tab-1">
-      <a href="#rotator-box-1" id="rotator-link-1">Item 1</a>
+      <a href="#rotator-box-1" id="rotator-link-1">
+        <span class="reader-only">Skip to </span>Item 1
+      </a>
     </li>
      ⋮
   </ul>
-  <div id="rotator-switch">
-    <span class="reader-only">toggle carousel</span>
+  <div id="rotator-switch" tabindex="0">
+    <span class="reader-only" id="toator-switch-text">stop carousel</span>
   </div>
-  <div id="rotator-box-1" class="rotator-box">
+  <div id="rotator-box-1" class="rotator-box" tabindex="0">
     <div class="hero-splash"></div>
-    <div class="hero-content">Banner Item 1</div>
+    <div class="hero-content">Banner for Item 1</div>
   </div>
    ⋮
 </div>
